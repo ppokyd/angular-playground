@@ -1,0 +1,18 @@
+<div class="section-icons">
+  <ul>
+    <li *ngFor="let section of sections;"
+      [ngClass]="{ 'hovered': activeSection && section.url === activeSection.url }">
+      <div (click)="selectSection(section)" (mouseenter)="selectSection(section)">
+        <i class="material-icons">{{ section.data.menu.icon || 'settings' }}</i>
+      </div>
+    </li>
+  </ul>
+</div>
+<div class="section-items" *ngIf="activeSection">
+  <h5 class="section-title">{{ activeSection.data.menu.label }}</h5>
+  <ul>
+    <li *ngFor="let item of activeSection.items;">
+      <a href="{{ item.name }}">{{ item.data.menu.label }}</a>
+    </li>
+  </ul>
+</div>

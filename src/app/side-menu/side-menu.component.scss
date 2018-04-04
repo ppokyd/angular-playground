@@ -1,0 +1,181 @@
+// widths
+$icons-sections-width: 50px;
+$items-sections-width: 200px;
+
+// animation speed
+$animation-speed: 0.3s;
+
+// colors
+$pb-purple-color: #ca20eb;
+$bar-color: #27282E;
+
+$icons-color: #999CAB;
+$icons-bar-color: #303139;
+$icons-bar-hover-color: #292c36;
+$icons-bar-hover-text-color: #fff;
+$icons-bar-hover-border-color: #069cfe;
+
+$items-hover-color: #1E1F25;
+$items-text-color: #757783;
+$items-text-hover-color: #E8E7E8;
+$items-bar-title-color: #E2E2E2;
+
+// shadows
+$icons-bar-shadow: 2px 0px 5px 0px rgba(0, 0, 0, 0.75);
+$items-bar-inset-shadow: inset 4px 0px 8px -2px rgba(30,31,37,1);
+
+@mixin icon-hovered() {
+  color: $icons-bar-hover-text-color;
+  background-color: $icons-bar-hover-color;
+  border-left: 3px solid $icons-bar-hover-border-color;
+
+  .material-icons {
+    left: 12px;
+  }
+}
+
+@mixin gradient($width) {
+  &:before, &:after {
+    content: '';
+    position: absolute;
+    bottom: -1 * $width;
+    left: -1 * $width;
+  }
+  // &:before {
+  //   top: -1 * $width;
+  //   width: $width;
+  //   background-image: -webkit-gradient(linear, 0 100%, 0 0, from($icons-bar-hover-border-color), to($pb-purple-color));
+  //   background-image: -webkit-linear-gradient($pb-purple-color, $icons-bar-hover-border-color);
+  //   background-image: -moz-linear-gradient($pb-purple-color, $icons-bar-hover-border-color);
+  //   background-image: -o-linear-gradient($pb-purple-color, $icons-bar-hover-border-color);
+  // }
+  &:after {
+    right: -1 * $width;
+    height: $width;
+    background-image: -webkit-gradient(linear, 0 0, 100% 0, from($icons-bar-hover-border-color), to($pb-purple-color));
+    background-image: -webkit-linear-gradient(left, $icons-bar-hover-border-color, $pb-purple-color);
+    background-image: -moz-linear-gradient(left, $icons-bar-hover-border-color, $pb-purple-color);
+    background-image: -o-linear-gradient(left, $icons-bar-hover-border-color, $pb-purple-color);
+  }
+}
+
+side-menu {
+  position: fixed;
+  display: block;
+  height: 100%;
+  width: $icons-sections-width;
+  z-index: 10;
+  transition: width $animation-speed ease-in-out;
+  transition: opacity $animation-speed ease-in-out;
+
+  .section-title {
+    color: $items-bar-title-color;
+    padding: 0px 0px 10px 0px;
+    margin: 15px 5px 10px 5px;
+    position: relative;
+    // border-bottom: 1px solid $pb-purple-color;
+    @include gradient(1px);
+  }
+
+  div {
+    &.side-menu-wrapper {
+      height: 100%;
+      background-color: $bar-color;
+
+      &.hover {
+        width: $icons-sections-width + $items-sections-width + 1px;
+
+        .section-items {
+          display: inline-block;
+        }
+
+        .section-icons {
+          box-shadow: none;
+
+          ul li.hovered div { @include icon-hovered(); }
+        }
+      }
+    }
+
+    &.section-icons {
+      display: inline-block;
+      width: $icons-sections-width;
+      height: 100%;
+      background-color: $icons-bar-color;
+      box-shadow: $icons-bar-shadow;
+
+      ul li {
+        position: relative;
+        cursor: pointer;
+
+        div {
+          color: $icons-color;
+          width: 100%;
+          height: 45px;
+          transition: background-color .1s ease-in-out;
+
+          .material-icons {
+            top: 12px;
+            left: 15px;
+            position: relative;
+          }
+        }
+
+        &.active,
+        &:hover {
+          div { @include icon-hovered(); }
+        }
+      }
+    }
+
+    &.section-items {
+      display: none;
+      box-shadow: $items-bar-inset-shadow, $icons-bar-shadow;
+      width: $items-sections-width;
+      top: 0;
+      position: absolute;
+      height: 100%;
+
+      a {
+        display: block;
+        color: $items-text-color;
+        margin: 5px 0px;
+        padding: 5px 10px;
+        width: $items-sections-width;
+        text-decoration: none;
+        transition: background-color .1s ease-in-out;
+
+        &.active,
+        &:hover {
+          color: $items-text-hover-color;
+          background-color: $items-hover-color;
+        }
+      }
+    }
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+
+    li {
+      list-style: none;
+      cursor: pointer;
+    }
+  }
+
+  .pin-button {
+    position: absolute;
+    bottom: 50px;
+    right: 10px;
+
+    label {
+      cursor: pointer;
+      color: $icons-bar-color;
+      background-color: rgba(153, 156, 171, 0.5);
+      padding: 2px 8px 0;
+      border-radius: 4px;
+      letter-spacing: 1px;
+    }
+  }
+}
