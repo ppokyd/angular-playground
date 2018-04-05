@@ -32,6 +32,7 @@ export class TreeViewComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes) {
     if (changes && changes.selectedId) {
+      this._closeAll(this.data);
       this._setSelected(this.data, changes.selectedId.currentValue);
     }
   }
@@ -55,6 +56,15 @@ export class TreeViewComponent implements OnInit, OnChanges {
     }
   }
 
+  private _closeAll(list) {
+    list.forEach(node => {
+      node.closed = true;
+      if (node.children) {
+        this._closeAll(node.children);
+      }
+    });
+  }
+
   private _setSelected(data, id) {
     if (id) {
       data.forEach(item => {
@@ -75,7 +85,7 @@ export class TreeViewComponent implements OnInit, OnChanges {
 
       if (found) {
         node.closed = false;
-        this.service.selectedItem = found;
+        this.service.onSelect.next(found);
         return true;
       } else {
         node.children.forEach(ch => {

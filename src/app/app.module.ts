@@ -25,7 +25,7 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
     TreeViewModule,
     UIRouterModule.forRoot({
       states: APP_STATES,
-      useHash: false,
+      useHash: true,
       otherwise: { state: 'app' },
       config: routerConfigFn,
     })
