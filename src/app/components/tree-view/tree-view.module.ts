@@ -8,8 +8,8 @@ import { TreeViewService } from './tree-view.service';
     CommonModule
   ],
   declarations: [
-    TreeViewComponent,
-  ],
+    TreeViewComponent
+ ],
   providers: [
     TreeViewService
   ],

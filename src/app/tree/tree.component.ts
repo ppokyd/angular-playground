@@ -7,7 +7,7 @@ import { TreeViewService } from '../components/tree-view/tree-view.service';
   styleUrls: ['./tree.component.scss']
 })
 export class TreeComponent implements OnInit {
-  public selectedId = null;
+  public selectedId = '';
   public selected = null;
   public data;
 
@@ -40,7 +40,6 @@ export class TreeComponent implements OnInit {
 
   getSelected() {
     if (this.selected) {
-      // console.log(JSON.stringify(this.selected, null, 2));
       return JSON.stringify(this.selected, null, 2);
     }
 
@@ -50,6 +49,7 @@ export class TreeComponent implements OnInit {
   private _generateData() {
     return Array.apply(null, Array(5)).map((item, index) => {
       return {
+        id: String(new Date().getTime() + Math.random()),
         name: `Node ${index}`,
         icon: 'account_circle',
         actions: [
@@ -58,6 +58,7 @@ export class TreeComponent implements OnInit {
         ],
         children: Array.apply(null, Array(5)).map((child, i) => {
           return {
+            id: String(new Date().getTime() + Math.random()),
             name: `Node ${i}`,
             icon: 'dns',
             actions: [
@@ -67,7 +68,7 @@ export class TreeComponent implements OnInit {
             children: Array.apply(null, Array(5)).map((c, ind) => {
               return ({
                 name: `Child ${ind}`, icon: 'play_circle_outline',
-                id: ind === 0 && i === 2 && index === 3 ? this.selectedId : new Date().getTime()
+                id: ind === 0 && i === 2 && index === 3 ? this.selectedId : String(new Date().getTime() + Math.random())
               });
             })
           };

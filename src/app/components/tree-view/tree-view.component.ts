@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter, OnChanges } from '@angular/core';
 import { TreeViewService } from './tree-view.service';
 
 @Component({
@@ -6,10 +6,12 @@ import { TreeViewService } from './tree-view.service';
   templateUrl: './tree-view.component.html',
   styleUrls: ['./tree-view.component.scss']
 })
-export class TreeViewComponent implements OnInit {
+export class TreeViewComponent implements OnInit, OnChanges {
   public closed = true;
+
   private selected = null;
 
+  @Input() treeSize = 0;
   @Input() data = [];
   @Input() selectedId = null;
 
@@ -18,11 +20,19 @@ export class TreeViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.treeSize++;
+
     this.getSelected();
 
     if (this.data && this.data.length) {
       this._setSelected(this.data, this.selectedId);
       this.data.forEach(item => item.closed = item.closed !== false ? true : false);
+    }
+  }
+
+  ngOnChanges(changes) {
+    if (changes && changes.selectedId) {
+      this._setSelected(this.data, changes.selectedId.currentValue);
     }
   }
 
@@ -34,20 +44,22 @@ export class TreeViewComponent implements OnInit {
   }
 
   onItemSelect(item) {
-    if (this.service.selectedItem === item) {
-      this.service.selectedItem = null;
-    } else {
-      this.service.selectedItem = item;
-    }
+    if (item) {
+      if (this.service.selectedItem === item) {
+        this.service.selectedItem = null;
+      } else {
+        this.service.selectedItem = item;
+      }
 
-    this.service.onSelect.next(this.service.selectedItem);
+      this.service.onSelect.next(this.service.selectedItem);
+    }
   }
 
   private _setSelected(data, id) {
     if (id) {
       data.forEach(item => {
-        if (item.id === id) {
-          this.service.selectedItem = item;
+        if (this._compare(item.id, id)) {
+          this.service.onSelect.next(item);
         } else if (this._checkNodeChildren(item, id)) {
           item.closed = false;
         }
@@ -59,7 +71,7 @@ export class TreeViewComponent implements OnInit {
     let result = false;
 
     if (node.children) {
-      const found = node.children.find(child => child.id === id);
+      const found = node.children.find(child => this._compare(child.id, id));
 
       if (found) {
         node.closed = false;
@@ -73,6 +85,10 @@ export class TreeViewComponent implements OnInit {
     }
 
     return result;
+  }
+
+  private _compare(val1, val2) {
+    return String(val1) === String(val2);
   }
 
 }

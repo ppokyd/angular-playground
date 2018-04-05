@@ -42,5 +42,9 @@
     list-style: none;
     padding-left: 28px;
     margin: 0;
+
+    &.tree-root {
+      padding: 0;
+    }
   }
 }
