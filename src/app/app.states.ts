@@ -3,6 +3,7 @@ import { AppComponent } from './app.component';
 // import { HomeComponent } from './home.component';
 // import { LoginComponent } from './login.component';
 import { Transition } from '@uirouter/core';
+import { TreeViewComponent } from './tree-view/tree-view.component';
 
 /**
  * This is the parent state for the entire application.
@@ -13,19 +14,20 @@ import { Transition } from '@uirouter/core';
  */
 export const appState = {
   name: 'app',
-  // redirectTo: 'welcome',
-  component: AppComponent,
+  url: '/',
+  // redirectTo: 'treee-view',
+  component: AppComponent
 };
 
 /**
- * This is the 'welcome' state.  It is the default state (as defined by app.js) if no other state
+ * This is the 'treeView' state.  It is the default state (as defined by app.js) if no other state
  * can be matched to the URL.
  */
-// export const welcomeState = {
+// export const treeViewState = {
 //   parent: 'app',
-//   name: 'welcome',
-//   url: '/welcome',
-//   component: WelcomeComponent,
+//   name: 'tree-view',
+//   url: '/tree-view',
+//   component: TreeViewComponent
 // };
 
 /**
@@ -108,7 +110,7 @@ export function returnTo ($transition$: Transition): any {
 
 export const APP_STATES = [
   appState,
-  // welcomeState,
+  // treeViewState,
   // homeState,
   // loginState,
   // contactsFutureState,

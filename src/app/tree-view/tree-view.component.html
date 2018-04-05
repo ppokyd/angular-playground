@@ -1,3 +1,22 @@
 
+<ul>
+  <li *ngFor="let item of data;" [ngClass]="{ 'no-children': !item.children }">
+    <div class="tree-item">
+      <i class="material-icons level-icon" *ngIf="item.children"
+        (click)="item.closed = !item.closed">{{ item.closed ? 'add' : 'remove' }}</i>
+  
+      <i class="material-icons item-icon" *ngIf="item.icon">{{ item.icon }}</i>
+  
+      <div class="item-name"
+        [ngClass]="{ 'selected-item': selected === item }"
+        (click)="onItemSelect(item)">{{ item.name }}</div>
+      
+      <div class="item-actions" *ngIf="item.actions">
+        <i class="material-icons" *ngFor="let action of item.actions;"
+          (click)="action.callback(item)">{{ action.icon }}</i>
+      </div>
+    </div>
 
-<app-tree-item [data]="data" (selectItem)="onSelect($event)"></app-tree-item>
+    <app-tree-view [data]="item.children" [hidden]="item.closed"></app-tree-view>
+  </li>
+</ul>
