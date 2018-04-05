@@ -1,0 +1,44 @@
+
+<div class="row">
+  <div class="col-4">
+    <div class="card">
+      <div class="card-header">
+        <span class="lead">Component View</span>
+      </div>
+      <div class="card-body">
+        <tree-view
+          [data]="data"
+          [selectedId]="selectedId"
+          ></tree-view>
+      </div>
+    </div>
+  </div>
+  <div class="col-8">
+    <div class="card">
+      <div class="card-header">
+        <span class="lead">Component Info</span>
+      </div>
+      <div class="card-body">
+        <p class="lead">Component usage:</p>
+        <p>
+          <code>
+            &lt;tree-view [data]="treeViewData" [selectedId]="selectedId"&gt;&lt;/tree-view&gt;
+          </code>
+        </p>
+
+        <p class="lead">Service usage:</p>
+          <pre><code>
+            TreeViewService.onSelect.subscribe(item =&gt; &#123;
+              console.log(item);
+            &#125;);
+          </code></pre>
+        <div class="form-row">
+          <label class="lead">Click on node to see selected value details:</label>
+          <textarea disabled class="form-control" [value]="getSelected()" rows="6"></textarea>
+        </div>
+        <small>More info in developers console</small>
+      </div>
+    </div>
+  </div>
+</div>
+

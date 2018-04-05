@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  height: calc(100vh - 50px);
+  background-color: #23212f;
+  color: #fff;
+  padding-top: 10px;
+
+  li {
+    padding-left: 3px;
+
+    a {
+      color: #fff;
+      letter-spacing: 2px;
+    }
+
+    &.active {
+      border-left: 3px solid;
+      padding-left: 0;
+      background-color: #353246;
+
+      a {
+        color: #fff;
+      }
+    }
+  }
+}

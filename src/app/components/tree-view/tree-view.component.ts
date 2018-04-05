@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { TreeViewService } from './tree-view.service';
 
 @Component({
-  selector: 'app-tree-view',
+  selector: 'tree-view',
   templateUrl: './tree-view.component.html',
   styleUrls: ['./tree-view.component.scss']
 })
@@ -18,7 +18,7 @@ export class TreeViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.selected = this.service.selectedItem;
+    this.getSelected();
 
     if (this.data && this.data.length) {
       this._setSelected(this.data, this.selectedId);
@@ -26,20 +26,27 @@ export class TreeViewComponent implements OnInit {
     }
   }
 
+  getSelected() {
+    this.selected = this.service.selectedItem;
+    this.service.onSelect.subscribe(res => {
+      this.selected = res;
+    });
+  }
 
   onItemSelect(item) {
-    if (this.selected === item) {
-      this.selected = null;
+    if (this.service.selectedItem === item) {
+      this.service.selectedItem = null;
     } else {
-      this.selected = item;
+      this.service.selectedItem = item;
     }
+
+    this.service.onSelect.next(this.service.selectedItem);
   }
 
   private _setSelected(data, id) {
     if (id) {
       data.forEach(item => {
         if (item.id === id) {
-          item.selected = true;
           this.service.selectedItem = item;
         } else if (this._checkNodeChildren(item, id)) {
           item.closed = false;
@@ -55,7 +62,6 @@ export class TreeViewComponent implements OnInit {
       const found = node.children.find(child => child.id === id);
 
       if (found) {
-        found.selected = true;
         node.closed = false;
         this.service.selectedItem = found;
         return true;

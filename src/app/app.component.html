@@ -1,13 +1,15 @@
-<div class="row py-2 px-3" style="background: #141419;
-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.75);">
-  <div class="col-12">
-
+<div class="container-fluid">
+  <div class="row header">
+    <div class="col-12">
+      <h3>Angular Playground</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2 px-0">
+      <app-side-menu></app-side-menu>
+    </div>
+    <div class="col-10 py-3">
+      <ui-view></ui-view>
+    </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-12">
-    <app-tree-view [data]="data" [selectedId]="selectedId"></app-tree-view>
-    <!-- <ui-view></ui-view> -->
-  </div>
-</div>
-

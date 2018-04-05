@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
 @Injectable()
 export class TreeViewService {
   private selectedValue = null;
+
+  public onSelect = new EventEmitter();
 
   constructor() { }
 
@@ -13,4 +15,5 @@ export class TreeViewService {
   set selectedItem(val) {
     this.selectedValue = val;
   }
+
 }
