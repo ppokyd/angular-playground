@@ -1,6 +1,6 @@
 
 <div class="row">
-  <div class="col-4">
+  <div class="col-lg-4 py-3">
     <div class="card">
       <div class="card-header">
         <span class="lead">Component View</span>
@@ -13,7 +13,7 @@
       </div>
     </div>
   </div>
-  <div class="col-8">
+  <div class="col-lg-8 py-3">
     <div class="card">
       <div class="card-header">
         <span class="lead">Component Info</span>
@@ -25,7 +25,7 @@
             &lt;tree-view [data]="treeViewData" [selectedId]="selectedId"&gt;&lt;/tree-view&gt;
           </code>
         </p>
-
+<hr>
         <p class="lead">Data structure:</p>
 <pre><code>[
   &#123;
@@ -37,17 +37,18 @@
     ]
   &#125;
 ]</code></pre>
-
+<hr>
         <p class="lead">Service usage:</p>
 <pre><code>TreeViewService.onSelect.subscribe(item =&gt; &#123;
   console.log(item);
 &#125;);</code></pre>
-
+<hr>
         <div class="form-row">
           <label class="lead">Click on node to see selected value details:</label>
           <textarea disabled class="form-control" [value]="getSelected()" rows="6"></textarea>
         </div>
         <small>More info in developers console</small>
+        <hr>
         <div class="form-row">
           <label class="lead">Enter node id:</label>
           <input type="text" class="form-control" [(ngModel)]="selectedId">
